@@ -1,0 +1,98 @@
+<html>
+<head>
+
+</head>
+<body>
+  <div class="side_panel" style="width: 280px">
+    <img src="лого.png" width="280px">
+    <select id="selectpreset">
+      <option value="0">Solar System</option>
+      <option value="1">Beta: solar system birth</option>
+      <option value="none" selected>Choose preset</option>
+    </select>
+    <input type="button" onclick="set_preset()" value="Set">
+    <ul id="planet_list"></ul>
+    <input type="button" id="openform" value="Create new planet" onclick="openForm(); stop()">
+    
+    <div id="planet_info">
+    <h3 style="padding-left: 2px;">Planet information</h3>
+    <table width="280px" height="180px">
+      <tr>
+        <td>Name</td><td class="info" id="info_name">----</td>
+      </tr>
+      <tr>
+        <td>Mass</td><td class="info" id="info_mass">----</td>
+      </tr>
+      <tr>
+        <td>Radius</td><td class="info" id="info_rad">----</td>
+      </tr>
+      <tr>
+        <td>Velocity</td><td class="info" id="info_v">----</td>
+      </tr>
+      <tr>
+        <td>Color</td><td class="info" id="info_color">----</td>
+      </tr>
+    </table>
+
+    <p id="unfocused">click on planet in the list to focus </p>
+  </div>
+    
+  </div>
+  
+  <div id="container">
+
+  <canvas id="canv"></canvas> 
+    
+  <div id="control_panel" >
+    
+    <button id="reset" style=" border-radius: 100%; height: 27px; width: 27px; margin-top: 4px; margin-left: 12px;" onclick="Reset()"><img src="reset.png"  /></button>
+    
+    
+    <div align="center" style="position: relative; width: 160px; left: 65px; top: -30px;" >
+      <button  onclick="scale /= 2" id="back">	&lt;&lt;</button>
+      <button  onclick="start_stop()" id="play">Play</button>
+      <button  onclick="scale *= 2; if(scale > 200) alert('высокая скорость может вызвать неточности в симуляции')" id="fwrd">&gt;&gt;</button>
+     
+    </div>
+     <button style=" top: 20px; position: absolute; left: 85%; top: 7px; border-radius: 5px;" onclick="scale = 1" id="1x">1x</button>
+  </div>
+
+  </div>
+
+
+  <div class="form_new_planet" id="plForm">
+      <form class="form-container">
+          <h1 style="font-family:Impact, Haettenschweiler,  sans-serif; font-weight: lighter; ">New planet</h1>
+      
+          <input type="text" placeholder="Name" id="name">        
+          <input type="number" placeholder="Mass" id="mass">
+          <input type="button" class="btn" onclick="getCoords()" value="Set position"> 
+          <input type="number" placeholder="position x" class="pos" id="posx"> : <input type="number" class="pos" placeholder="position y" id="posy"> 
+          <label for="is_static">Planet is static</label>
+          <input type="checkbox" id="is_static">
+          <input type="number" placeholder="Radius" id="radius">
+          <label for="color">Choose color</label>
+          <input type="color" class="btn" id="color">
+          <div>
+            <input type="number" placeholder="Velocity" class="pos" id="V">
+            <input type="range"  name="angle" id="vel_ang" min="0" max="360" >
+          </div>
+          <input type="button" class="btn" value="use first cosmic velocity" onclick="orbitSpeedUI()">
+          <input type="button" class="btn" value="Create" onclick="if(setting_pos){getCoords()} AddPlanetUI(); closeForm(); start()">
+          <input type="button" class="btn cancel" onclick="if(setting_pos){getCoords()} closeForm(); start()" value="Close">
+      </form>
+  </div>
+
+  
+
+</body>
+</html>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<script src="vect.js"></script>
+<script src="render.js"></script>
+<script src="s.js"></script>
+<script src="presets.js"></script>
+<script src="ui.js"></script>
+<script>defaultPlanets()</script>

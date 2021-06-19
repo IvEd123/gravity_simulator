@@ -1,0 +1,99 @@
+<html>
+<head>
+
+</head>
+<body>
+  <div class="side_panel" style="width: 280px">
+    <img src="лого.png" width="280px">
+    <select id="selectpreset">
+      <option value="0">Солнечная система</option>
+      <option value="1">Beta: Зарождение Солнечной системы</option>
+      <option value="none" selected>Выберите систему</option>
+    </select>
+    <input type="button" onclick="set_preset()" value="Выбрать">
+    <ul id="planet_list"></ul>
+    <input type="button" id="openform" value="Создать планету" onclick="openForm(); stop()">
+    
+    <div id="planet_info">
+    <h3 style="padding-left: 2px;">Информация о планете</h3>
+    <table width="280px" height="180px">
+      <tr>
+        <td>Имя</td><td class="info" id="info_name">----</td>
+      </tr>
+      <tr>
+        <td>Масса</td><td class="info" id="info_mass">----</td>
+      </tr>
+      <tr>
+        <td>Радиус</td><td class="info" id="info_rad">----</td>
+      </tr>
+      <tr>
+        <td>Скорость</td><td class="info" id="info_v">----</td>
+      </tr>
+      <tr>
+        <td>Цвет</td><td class="info" id="info_color">----</td>
+      </tr>
+    </table>
+
+    <p id="unfocused">Нажмите на планету в списке чтобы выбрать её </p>
+  </div>
+    
+  </div>
+  
+  <div id="container">
+
+  <canvas id="canv"></canvas> 
+    
+  <div id="control_panel" >
+    
+    <button id="reset" style=" border-radius: 100%; height: 27px; width: 27px; margin-top: 4px; margin-left: 12px;" onclick="Reset()"><img src="reset.png"  /></button>
+    
+    
+    <div align="center" style="position: relative; width: 160px; left: 65px; top: -30px;" >
+      <button  onclick="scale /= 2" id="back">	&lt;&lt;</button>
+      <button  onclick="start_stop()" id="play">Play</button>
+      <button  onclick="scale *= 2; if(scale > 200) alert('высокая скорость может вызвать неточности в симуляции')" id="fwrd">&gt;&gt;</button>
+     
+    </div>
+     <button style=" top: 20px; position: absolute; left: 85%; top: 7px; border-radius: 5px;" onclick="scale = 1" id="1x">1x</button>
+  </div>
+
+  </div>
+
+
+  <div class="form_new_planet" id="plForm">
+      <form class="form-container">
+          <h1 style="font-family:Impact, Haettenschweiler,  sans-serif; font-weight: lighter; ">Новая планета</h1>
+      
+          <input type="text" placeholder="Название" id="name">        
+          <input type="number" placeholder="Масса" id="mass">
+          <input type="button" class="btn" onclick="getCoords()" value="Указать местоположение"> 
+          <input type="number" placeholder="x" class="pos" id="posx"> : <input type="number" class="pos" placeholder="y" id="posy"> 
+          <div>
+          <input type="checkbox" id="is_static"><label for="is_static">Планета неподвижна</label>
+          <input type="number" placeholder="Радиус" id="radius">
+          </div>
+          <label for="color">Выбрать цвет</label>
+          <input type="color" class="btn" id="color">
+          <div>
+            <input type="number" placeholder="Скорость" class="pos" id="V">
+            <input type="range"  name="angle" id="vel_ang" min="0" max="360" >
+          </div>
+          <input type="button" class="btn" value="Первая космическая скорость" onclick="orbitSpeedUI()">
+          <input type="button" class="btn" value="Создать" onclick="if(setting_pos){getCoords()} AddPlanetUI(); closeForm(); start()">
+          <input type="button" class="btn cancel" onclick="if(setting_pos){getCoords()} closeForm(); start()" value="Закрыть">
+      </form>
+  </div>
+
+  
+
+</body>
+</html>
+
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<script src="vect.js"></script>
+<script src="render.js"></script>
+<script src="s.js"></script>
+<script src="presets.js"></script>
+<script src="ui.js"></script>
+<script>defaultPlanets()</script>
